@@ -9,7 +9,6 @@ kernel = "epanechnikov"
 
 option_list = list(
     make_option("--reg_model", type="character", default=NULL,help="--reg_model", metavar="character"),
-    make_option("--method", type="character", default=NULL, help="--method", metavar="character"),
     make_option("--hcorr", type="character", default=NULL,  help="--hcorr", metavar="character"),
     make_option("--kernel", type="character", default=NULL, help="--kernel", metavar="character"),
     make_option("--transf", type="character", default=NULL, help="--transf", metavar="character"),
@@ -33,7 +32,7 @@ main <- function(opt){
         param = read_f(filename=opt$df_simu_space_knn_params), 
         sumstat = read_f(filename=opt$df_simu_space_knn_ss), 
         tol = 1, 
-        method = opt$method, 
+        method = opt$reg_model, 
         transf = opt$transf, 
         hcorr = opt$hcorr, 
         kernel = opt$kernel, 
