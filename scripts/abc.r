@@ -1,5 +1,4 @@
 library("arrow")
-library("assertthat")
 library("abc")
 library("optparse")
 
@@ -19,7 +18,6 @@ option_list = list(
     make_option("--df_simu_space_knn_ss", type="character", default=NULL, help="--df_simu_space_knn_ss", metavar="character"),
     make_option("--output_dir", type="character", default=NULL, help="--output_dir", metavar="character")
 )
-
  
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
