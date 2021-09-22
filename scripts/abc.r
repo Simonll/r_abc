@@ -44,7 +44,7 @@ main <- function(opt){
 read_f <- function(filename) {
 
     df <- as.data.frame(read_feather(paste0("/data/", filename)))
-    return df
+    return(df)
 
 }
 
