@@ -2,21 +2,23 @@ library("arrow")
 library("abc")
 library("optparse")
 
-wd <- "/data/" #paste0(getwd(),"/")
+
 
 main <- function(opt){
+    df_true_ss <- as.data.frame(read_feather(opt$df_true_ss,))
+    df_simu_space_knn_params <- as.data.frame(read_feather(opt$df_simu_space_knn_params))
+    df_simu_space_knn_ss <- as.data.frame(read_feather(opt$df_simu_space_knn_ss))
     df_knn <- abc(
-        target = read_f(filename=opt$df_true_ss),
-        param = read_f(filename=opt$df_simu_space_knn_params), 
-        sumstat = read_f(filename=opt$df_simu_space_knn_ss), 
+        target = df_true_ss,
+        param = df_simu_space_knn_params, 
+        sumstat = df_simu_space_knn_ss, 
         tol = 1, 
         method = opt$reg_model, 
         transf = opt$transf, 
         hcorr = opt$hcorr, 
         kernel = opt$kernel, 
         sizenet = 1)$adj.values
-    print(getwd())
-    write_feather(x=as.data.frame(df_knn), sink=paste0(wd, "df_knn.feather",version = 2))
+    write_feather(x=as.data.frame(df_knn), sink=paste0(opt$output, ".feather",version = 2))
 }
 
 
@@ -32,6 +34,7 @@ option_list = list(
     make_option("--hcorr", type="character", default=NULL,  help="--hcorr", metavar="character"),
     make_option("--kernel", type="character", default=NULL, help="--kernel", metavar="character"),
     make_option("--transf", type="character", default=NULL, help="--transf", metavar="character"),
+    make_option("--output", type="character", default=NULL, help="--output_dir", metavar="character"),,
     make_option("--df_true_ss", type="character", default=NULL, help="--df_true_ss", metavar="character"),
     make_option("--df_simu_space_knn_params", type="character", default=NULL,  help="--df_simu_space_knn_params", metavar="character"),
     make_option("--df_simu_space_knn_ss", type="character", default=NULL, help="--df_simu_space_knn_ss", metavar="character")
