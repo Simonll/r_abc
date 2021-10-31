@@ -34,7 +34,7 @@ option_list = list(
     make_option("--hcorr", type="character", default=NULL,  help="--hcorr", metavar="character"),
     make_option("--kernel", type="character", default=NULL, help="--kernel", metavar="character"),
     make_option("--transf", type="character", default=NULL, help="--transf", metavar="character"),
-    make_option("--output", type="character", default=NULL, help="--output_dir", metavar="character"),,
+    make_option("--output", type="character", default=NULL, help="--output", metavar="character"),
     make_option("--df_true_ss", type="character", default=NULL, help="--df_true_ss", metavar="character"),
     make_option("--df_simu_space_knn_params", type="character", default=NULL,  help="--df_simu_space_knn_params", metavar="character"),
     make_option("--df_simu_space_knn_ss", type="character", default=NULL, help="--df_simu_space_knn_ss", metavar="character")
