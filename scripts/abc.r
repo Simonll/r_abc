@@ -5,9 +5,9 @@ library("optparse")
 
 
 main <- function(opt){
-    df_true_ss <- as.data.frame(read_feather(opt$df_true_ss,))
-    df_simu_space_knn_params <- as.data.frame(read_feather(opt$df_simu_space_knn_params))
-    df_simu_space_knn_ss <- as.data.frame(read_feather(opt$df_simu_space_knn_ss))
+    df_true_ss <- as.data.frame(opt$df_true_ss)
+    df_simu_space_knn_params <- as.data.frame(opt$df_simu_space_knn_params)
+    df_simu_space_knn_ss <- as.data.frame(opt$df_simu_space_knn_ss)
     df_knn <- abc(
         target = df_true_ss,
         param = df_simu_space_knn_params, 
