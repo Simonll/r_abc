@@ -5,9 +5,10 @@ library("optparse")
 
 
 main <- function(opt){
-    df_true_ss <- as.data.frame(opt$df_true_ss)
-    df_simu_space_knn_params <- as.data.frame(opt$df_simu_space_knn_params)
-    df_simu_space_knn_ss <- as.data.frame(opt$df_simu_space_knn_ss)
+    print(opt)
+    df_true_ss <- read_f(input=opt$df_true_ss)
+    df_simu_space_knn_params <- read_f(input=opt$df_simu_space_knn_params)
+    df_simu_space_knn_ss <- read_f(input=opt$df_simu_space_knn_ss)
     df_knn <- abc(
         target = df_true_ss,
         param = df_simu_space_knn_params, 
@@ -18,14 +19,20 @@ main <- function(opt){
         hcorr = opt$hcorr, 
         kernel = opt$kernel, 
         sizenet = 1)$adj.values
-    write_feather(x=as.data.frame(df_knn), sink=paste0(opt$output, ".feather",version = 2))
+    write_f(df=df_knn, output=opt$output)
 }
 
 
-read_f <- function(filename) {
-    df <- as.data.frame(read_feather(paste0(wd, filename)))
+read_f <- function(input) {
+    print(input)
+    df <- read_feather(file = input, as_data_frame = TRUE)
     print(dim(df))
     return(df)
+}
+
+
+write_f <- function(df, output) {
+    write_feather(x = as.data.frame(df),sink = output, version=2)
 }
 
 
