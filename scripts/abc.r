@@ -5,11 +5,11 @@ library("optparse")
 
 
 main <- function(opt){
-    print(opt)
     df_true_ss <- read_f(input=opt$df_true_ss)
     df_simu_space_knn_params <- read_f(input=opt$df_simu_space_knn_params)
     df_simu_space_knn_ss <- read_f(input=opt$df_simu_space_knn_ss)
-    df_knn <- abc(
+    df_simu_space_knn_chainID <- read_f(input=opt$df_simu_space_knn_chainID)
+    df_knn <- as.data.frame(abc(
         target = df_true_ss,
         param = df_simu_space_knn_params, 
         sumstat = df_simu_space_knn_ss, 
@@ -18,15 +18,14 @@ main <- function(opt){
         transf = opt$transf, 
         hcorr = opt$hcorr, 
         kernel = opt$kernel, 
-        sizenet = 1)$adj.values
-    write_f(df=df_knn, output=opt$output)
+        sizenet = 1)$adj.values)
+    df_knn_ <- cbind(df_simu_space_knn_chainID,df_knn)
+    write_f(df=df_knn_, output=opt$output)
 }
 
 
 read_f <- function(input) {
-    print(input)
     df <- read_feather(file = input, as_data_frame = TRUE)
-    print(dim(df))
     return(df)
 }
 
@@ -44,7 +43,8 @@ option_list = list(
     make_option("--output", type="character", default=NULL, help="--output", metavar="character"),
     make_option("--df_true_ss", type="character", default=NULL, help="--df_true_ss", metavar="character"),
     make_option("--df_simu_space_knn_params", type="character", default=NULL,  help="--df_simu_space_knn_params", metavar="character"),
-    make_option("--df_simu_space_knn_ss", type="character", default=NULL, help="--df_simu_space_knn_ss", metavar="character")
+    make_option("--df_simu_space_knn_ss", type="character", default=NULL, help="--df_simu_space_knn_ss", metavar="character"),
+    make_option("--df_simu_space_knn_chainID", type="character", default=NULL, help="--df_simu_space_knn_chainID", metavar="character")
 )
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
